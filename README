@@ -15,7 +15,7 @@ then just run the command:
 
 or clone the repo:
 
-	git clone git@github.com:mnaamani/upnp-get-account.git
+	git clone https://github.com/mnaamani/upnp-get-account.git
 	cd upnp-get-account
 	npm install
 	node ./index.js
