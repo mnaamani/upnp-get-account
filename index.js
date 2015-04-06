@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var upnp = require('./lib/nat');
 
 var client = upnp.createClient();
