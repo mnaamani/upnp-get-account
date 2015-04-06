@@ -1,6 +1,6 @@
 {
 	"name": "upnp-get-account",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "retrieve active connection username and password from upnp gateway device",
 	"main": "./index.js",
 	"bin": {
