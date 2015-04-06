@@ -1,0 +1,34 @@
+This tool uses upnp to look for a local gateway and then issues the
+GetUserName and GetPassword actions to retrieve the active connection's username and password.
+
+It only works for gateways that support and implement these actions.
+
+requirements: node and npm
+
+Installation:
+
+	npm -g install upnp-get-account
+
+then just run the command:
+
+	upnp-get-account
+
+or clone the repo:
+
+	git clone git@github.com:mnaamani/upnp-get-account.git
+	cd upnp-get-account
+	npm install
+	node ./index.js
+
+Tool also ported to chrome-app:
+
+https://chrome.google.com/webstore/detail/adsl-account-recovery-too/lnklpkbkkgbmhaaegjjdjcaafgfjgpbm
+
+Reference UPnP Specs:
+
+http://upnp.org/specs/gw/UPnP-gw-WANPPPConnection-v1-Service.pdf
+WANPPPConnection:1 Service Template Version 1.01 - For UPnP™ Version 1.0
+GetUserName - section 2.4.15 on page 28
+GetPassword - section 2.4.16 on page 29
+
+UPNP library is modified version of: https://github.com/indutny/node-nat-upnp

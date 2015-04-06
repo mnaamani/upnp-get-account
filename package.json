@@ -1,0 +1,21 @@
+{
+	"name": "upnp-get-account",
+	"version": "0.1.0",
+	"description": "retrieve active connection username and password from upnp gateway device",
+	"main": "./index.js",
+	"bin": {
+		"upnp-get-account": "./index.js"
+	},
+	"author": "Mokhtar Naamani <mokhtar.naamani@gmail.com>",
+	"homepage": "https://github.com/mnaamani/upnp-get-account",
+	"repository": {
+		"type": "git",
+		"url": "http://github.com/mnaamani/upnp-get-account"
+	},
+	"dependencies": {
+		"xml2js": "=0.1.14",
+		"request": "=2.10.0",
+		"async": "=0.9.0",
+		"ip": "=0.0.5"
+	}
+}
