@@ -1,38 +1,49 @@
 #!/usr/bin/env node
 
-var upnp = require('./lib/nat');
+var nat = require('./lib/nat');
 
-var client = upnp.createClient();
+var ip = process.argv[2];
 
-console.log("Looking for gateway...");
+singleGateway(ip);
 
-client.findGateway(function (err, device) {
-	var username, password;
+//discover gateway on the local network or specified by ip
+function singleGateway(ip) {
+	var client = nat.createClient();
+	console.log("Looking for local gateway...", ip ? ip : "");
 
-	if (err) {
-		console.log("Error finding gateway:", err.message);
-		client.close();
-		return;
+	function onGateway(err, gateway) {
+		if (err) {
+			console.error("error contacting gateway:", err.message);
+			client.close();
+			return;
+		}
+		console.error("gateway found:", gateway.description);
+		getAccountInfo(gateway, function (err, username, password) {
+			if (err) {
+				console.error("error querying username and password:", err.message);
+			} else {
+				console.log("Gateway: %s  Username: %s  Password: %s", gateway.addr, username,
+					password);
+			}
+			client.close();
+		});
 	}
 
-	console.log("Gateway found:", device.description);
-	console.log("Querying connection username and password...");
+	client.findGateway(ip, onGateway);
+}
 
-	client.getUserName(function (err, user) {
-		username = user;
-		if (err) console.log("Error getting username:", err.message);
+function getAccountInfo(gateway, callback) {
+	gateway.getUserName(function (err, username) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		gateway.getPassword(function (err, password) {
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(undefined, username, password);
+		});
 	});
-
-	client.getPassword(function (err, pwd) {
-		password = pwd;
-		if (err) console.log("Error getting password:", err.message);
-	});
-
-	setTimeout(function () {
-		client.close();
-		if (username && password) {
-			console.log("Username:", username);
-			console.log("Password:", password);
-		} else console.log("Unable to retrieve username and password");
-	}, 1500);
-});
+}
